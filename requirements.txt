@@ -1,0 +1,5 @@
+DATABASE_URL=postgresql://postgres:password@localhost:5432/ai_workspace
+
+JWT_SECRET_KEY=your_secret_key
+
+OPENROUTER_API_KEY=your_api_key
