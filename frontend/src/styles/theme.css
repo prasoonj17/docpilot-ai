@@ -1,0 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap");
+
+
+
+
+:root {
+  /* palette #1: cream, mist, sage, sand, charcoal, clay */
+  --ink: #302b2d;
+  --ink-soft: #5c5356;
+
+  --cream: #e1ddd3;
+  --paper: #f7f4ed;
+  --mist: #c9d2d1;
+  --sage: #a4b2b0;
+  --sand: #dab89d;
+  --clay: #a47c66;
+
+  /* dark coffee */
+  --night: #1f1613;
+  --brown-900: #2b1810;
+  --brown-800: #4a2e1f;
+  --brown-700: #6a4a34;
+
+  --error: #9b3b2a;
+  --error-line: #b5483a;
+
+  --font-display: "Fredoka", "Nunito", system-ui, sans-serif;
+  --font-body: "Nunito", system-ui, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: none;
+  min-height: 100%;
+  text-align: initial;
+}
+
+body {
+  display: block;
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--night);
+}
+
+h1,
+h2 {
+  font-family: var(--font-display);
+  color: var(--ink);
+}
+
+button {
+  font-family: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}
