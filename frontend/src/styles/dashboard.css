@@ -321,7 +321,7 @@
   padding: 16px;
   background: #fdfbf7;
   border-top: 3px solid var(--ink);
-} */
+} 
 
 .chat-input-bar input {
   flex: 1;
