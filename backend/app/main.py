@@ -53,13 +53,23 @@ from app.database.database import engine, Base # <-- ADDED: Import engine and Ba
 # from app.models.chat import Chat
 # from app.models.chat_session import ChatSession
 
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from app.database.database import engine, Base
+
+# Uncomment models so Base.metadata finds them when executing create_all
+# from app.models.user import User 
+# from app.models.document import Document
+# from app.models.chat import Chat
+# from app.models.chat_session import ChatSession
+
 from app.api.auth import router as auth_router
 from app.api.user import router as user_router
 from app.api.document import router as document_router
 from app.api.chat import router as chat_router
 from app.api.chat_session import router as chat_session_router
 
-# <-- ADDED: This line creates the "users" table (and all others) on startup
+# Create missing tables in Neon DB
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -75,8 +85,7 @@ app.add_middleware(
         "http://127.0.0.1:5173",
         "http://localhost:3000",
         "http://127.0.0.1:3000",
-        "docpilot-ai-flax.vercel.app",
-        # NOTE: Once you host your frontend (e.g., Vercel), add its URL here too
+        "https://docpilot-ai-flax.vercel.app",  # Added https://
     ],
     allow_credentials=True,
     allow_methods=["*"],
