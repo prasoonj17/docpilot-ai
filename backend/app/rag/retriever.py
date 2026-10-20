@@ -191,6 +191,14 @@ def faiss_search(
         # Step 1 - Query Embedding via API (0 MB server RAM)
         query_embedding = get_embeddings([query])
 
+        if query_embedding.shape[1] != index.d:
+            raise ValueError(
+                f"Embedding dimension mismatch: "
+                f"query={query_embedding.shape[1]}, "
+                f"FAISS index={index.d}. "
+                f"Rebuild the FAISS index using the current embedding model."
+            )
+
         # Step 2 - Search in FAISS
         distances, chunk_ids = index.search(
             query_embedding.astype(np.float32),

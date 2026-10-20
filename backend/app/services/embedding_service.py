@@ -1,19 +1,40 @@
-import numpy as np
-from sentence_transformers import SentenceTransformer
 
-model = SentenceTransformer(
-    "sentence-transformers/all-MiniLM-L6-v2"
+import os
+import numpy as np
+from google import genai
+from google.genai import types
+
+client = genai.Client(
+    api_key=os.environ["GEMINI_API_KEY"]
 )
 
-def get_embeddings(texts: list[str]) -> np.ndarray:
+MODEL_NAME = "gemini-embedding-001"
+EMBEDDING_DIMENSION = 768
+
+
+def get_embeddings(
+    texts: list[str],
+    task_type: str = "RETRIEVAL_QUERY",
+) -> np.ndarray:
+
     if not texts:
-        return np.empty((0, 384), dtype=np.float32)
+        return np.empty(
+            (0, EMBEDDING_DIMENSION),
+            dtype=np.float32,
+        )
 
-    embeddings = model.encode(
-        texts,
-        convert_to_numpy=True,
-        normalize_embeddings=True,
-        show_progress_bar=False,
-    )
+    vectors = []
 
-    return np.asarray(embeddings, dtype=np.float32)
+    for text in texts:
+        result = client.models.embed_content(
+            model=MODEL_NAME,
+            contents=text,
+            config=types.EmbedContentConfig(
+                task_type=task_type,
+                output_dimensionality=EMBEDDING_DIMENSION,
+            ),
+        )
+
+        vectors.append(result.embeddings[0].values)
+
+    return np.asarray(vectors, dtype=np.float32)
