@@ -3,6 +3,7 @@ import os
 import numpy as np
 from google import genai
 from google.genai import types
+print("🔥 EMBEDDING BACKEND: GEMINI - 768 DIMENSIONS")
 
 client = genai.Client(
     api_key=os.environ["GEMINI_API_KEY"]
